@@ -39,7 +39,6 @@ page de l'utiliser. Il affichera toujours le menu et il affiche le contenu de la
     ]
 
     const route = useRoute();
-    console.log(route)
 
 </script>
 
