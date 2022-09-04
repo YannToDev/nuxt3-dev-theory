@@ -19,7 +19,7 @@ page de l'utiliser. Il affichera toujours le menu et il affiche le contenu de la
 
         <!-- start : PAGE -->
         <div class="w-full pl-64">
-            <div class="p-5">
+            <div :class="$route.path === '/'? '':'p-5'">
                 <slot></slot>
             </div>
         </div>
@@ -46,6 +46,7 @@ page de l'utiliser. Il affichera toujours le menu et il affiche le contenu de la
     .menu li.hover-bordered a:hover, .menu li.bordered a {
         @apply border-primary-content
     }
+
 </style>
 
 
