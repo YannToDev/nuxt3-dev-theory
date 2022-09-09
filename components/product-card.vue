@@ -5,21 +5,25 @@
         class="card card-compact lg:card-normal w-full bg-base-100 shadow-xl cursor-pointer"
         @mouseover="isHovering= true"
         @mouseleave="isHovering=false"
+        @click="$router.push(`/product/`+id)"
     >
-        <figure class="overflow-hidden">
-            <img :class="isHovering? 'scale-110' :''" class="transition-transform duration-500" :src="imgSrc" alt="Shoes" />
-        </figure>
-        <div class="card-body">
-            <p> 
-                <span class="relative">
-                    {{name}}
-                    <span :class="isHovering? 'w-full' : 'w-0'" class="absolute bottom-0 left-0 w-full h-[1px] bg-base-content duration-500">
+        <!-- <Nuxt-link :to="`/product/`+id"> -->
+            <figure class="overflow-hidden">
+                <img :class="isHovering? 'scale-110' :''" class="transition-transform duration-500" :src="imgSrc" :alt="name" />
+            </figure>
+            <div class="card-body">
+                <p> 
+                    <span class="relative">
+                        {{name}}
+                        <span :class="isHovering? 'w-full' : 'w-0'" class="absolute bottom-0 left-0 w-full h-[1px] bg-base-content duration-500">
 
+                        </span>
                     </span>
-                </span>
-            </p>
-            <h2 class="card-title">{{price}}€</h2>
-        </div>
+                </p>
+                <h2 class="card-title">{{price}}€</h2>
+            </div>
+        <!-- </Nuxt-link> -->
+        
     </div>
 </template>
 
@@ -41,6 +45,12 @@
 
         imgSrc :{
             type: String,
+            required:true
+        },
+
+        id:{
+
+            type:Number,
             required:true
         }
     })

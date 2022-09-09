@@ -1,6 +1,4 @@
-<!-- on l'appel default car il va s'appliquer partout et on aura pas besoin de spécifier à tel ou tel
-page de l'utiliser. Il affichera toujours le menu et il affiche le contenu de la page de façon dynamique
-à l'aide d'un slot -->
+<!-- Layout qui contient la sidebar ainsi que le contenu de chacune de nos pages -->
 
 <template>
     <div class="flex h-full">
@@ -10,8 +8,12 @@ page de l'utiliser. Il affichera toujours le menu et il affiche le contenu de la
             <h1 class="mt-5 px-5 text-2xl font-bold">DT Merch</h1>
 
             <ul class="menu  mt-10 w-full px-0">
-                <li v-for="(menuItem,index) in menuItems" :key="index" :class="menuItem.path === $route.path? 'bordered' : 'hover-bordered'">
-                    <NuxtLink :to="menuItem.path" >{{menuItem.title}}</NuxtLink>
+                <li 
+                    v-for="(menuItem,index) in menuItems" 
+                    :key="index" 
+                    :class="menuItem.path === $route.path? 'bordered' : 'hover-bordered'">
+                        <!-- <NuxtLink :to="menuItem.path" >{{menuItem.title}}</NuxtLink> -->
+                        <NuxtLink :to="menuItem.path" >{{menuItem.title}}</NuxtLink>
                 </li>
             </ul>
 
@@ -19,9 +21,7 @@ page de l'utiliser. Il affichera toujours le menu et il affiche le contenu de la
 
         <!-- start : PAGE -->
         <div class="w-full pl-64">
-            <div :class="$route.path === '/'? '':'p-5'">
-                <slot></slot>
-            </div>
+            <slot></slot>
         </div>
         <!-- end : PAGE -->
 
@@ -30,19 +30,31 @@ page de l'utiliser. Il affichera toujours le menu et il affiche le contenu de la
 
 <script setup>
 
+    // on définit une constante à partir du composable
+    const categories = useCategories();
+
+    // on définit les différentes catégories du menu
+    const menuCategoryItems = categories.value.map(category => {
+
+        return{
+
+            path:'/category/' + category.id,
+            title:category.title
+        }
+    })
+
+    // on rédéfinit tous les items du menu
     const menuItems = [
 
         {path:'/', title :'Acceuil'},
-        {path: '/category/head', title:'Tête'},
-        {path: '/category/body', title:'Hauts'},
-        {path: '/category/other', title:'Autres'},
+        ...menuCategoryItems
     ]
-
-    const route = useRoute();
 
 </script>
 
 <style scoped>
+ 
+
     .menu li.hover-bordered a:hover, .menu li.bordered a {
         @apply border-primary-content
     }
@@ -50,7 +62,4 @@ page de l'utiliser. Il affichera toujours le menu et il affiche le contenu de la
 </style>
 
 
-<!-- ici on a pas de fichier pour configurer le routing comme dans Vue 3 donc on doit définir un tableau qui contient
-les différents path que l'on souhaite utiliser, c'est ce que l'on fait avec le tableau menuItems
-Ensuite on boucle sur ce tableau pour avoir autant de liens qu'il n'y a de chemin dans ce tableau
-On navigue ensuite en utilisant un <NuxtLink> qui est un peu l'équivalent du <router-link> dans vue 3 on lui passe le chemin en paramètre -->
+

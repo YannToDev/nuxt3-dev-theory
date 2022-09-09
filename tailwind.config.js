@@ -15,7 +15,8 @@ module.exports = {
 
   daisyui: {
     themes: [
-      'garden'
+      'garden',
+      'aqua'
     ]
   },
 }

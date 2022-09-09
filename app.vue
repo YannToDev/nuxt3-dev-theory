@@ -4,8 +4,10 @@
     </NuxtLayout> 
 </template>
 
+<script setup>
+   
 
-
+</script>
 
 <!-- composant principal par lequel tout passe, quand on a un layout global comme ici, il doit englober
 le composant <NuxtPage> -->
@@ -24,6 +26,5 @@ le composant <NuxtPage> -->
 
     transition: opacity 0.3s ease-out
   }
-
 
 </style>
