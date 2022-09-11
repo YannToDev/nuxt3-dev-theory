@@ -5,7 +5,16 @@
 
         <!-- start: SIDEBAR -->
         <div class="fixed top-0 bottom-0 left-0 w-64 py-5 bg-primary text-primary-content">
-            <h1 class="mt-5 px-5 text-2xl font-bold">DT Merch</h1>
+            <h1 class="mt-5 px-5 text-2xl font-bold  flex items-center justify-between">DT Merch
+                <NuxtLink to="/cart">
+                    <div class="indicator">    
+                        <span class="indicator-item badge badge-primary">{{totalProducts}}</span>
+                            <button class="btn btn-square btn-outline btn-secondary">
+                            <!-- <ShoppingBagIcon></ShoppingBagIcon> -->
+                            </button>
+                     </div>
+                </NuxtLink>
+            </h1>
 
             <ul class="menu  mt-10 w-full px-0">
                 <li 
@@ -30,6 +39,8 @@
 
 <script setup>
 
+    // import {ShoppingBagIcon} from '@heroicons/vue/outline'
+
     // on définit une constante à partir du composable
     const categories = useCategories();
 
@@ -49,6 +60,9 @@
         {path:'/', title :'Acceuil'},
         ...menuCategoryItems
     ]
+
+    const {totalProducts} = useCart(); 
+    
 
 </script>
 

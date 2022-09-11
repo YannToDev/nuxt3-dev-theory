@@ -2,14 +2,47 @@
 // composable pour ajouter un produit au panier
 export const useCart = () =>{
 
-    const selectedProducts = useState('selectedProducts',()=>[]);
+    // mise en place d'un cookie
+    const saveSelectedProducts = useCookie('selectedProduct',{
 
+        expires: new Date(Date.now() + 1000 * 60 *60 *24 * 14)
+    });
+
+
+    // variable qui contient le panier en lui même
+    const selectedProducts = useState('selectedProducts',()=>{
+
+        if(saveSelectedProducts.value !==undefined && saveSelectedProducts.value.length >0){
+
+            return saveSelectedProducts.value;
+        }
+        else{
+
+            return [];
+        }
+    });
+
+
+    // variable dynamique pour calculer le prix total du panier
     const TotalPrice = computed(() =>{
     
             return selectedProducts.value.reduce((acc,product) =>(acc + (product.price) * product.quantity),0)
     });
 
+    // variable dynamique pour afficher le nombre de produit dans le panier
+    const totalProducts = computed (()=>{
 
+        return selectedProducts.value.reduce((acc,product) =>(acc + product.quantity),0)
+    })
+
+
+    watch(selectedProducts.value ,() =>{
+
+        saveSelectedProducts.value = selectedProducts.value;
+
+    })
+
+    // méthode qui permet d'ajouter un produit au panier
     function addProductToCart(product, variantSelect) {
 
         const addProductIndexInCart = selectedProducts.value.findIndex(selectedProduct => selectedProduct.id === product.id)
@@ -26,6 +59,7 @@ export const useCart = () =>{
                 variants: variantSelect !== null? [variantSelect.value] :null,
                 quantity:1
             });
+
             
         }
 
@@ -38,15 +72,34 @@ export const useCart = () =>{
 
                 selectedProduct.variants.push(variantSelect.value)
             }
+            
         }
         console.log('cart:',selectedProducts.value, 'prix total:',TotalPrice.value)
+    }
+
+    // méthode pour supprimer un produit du panier
+    function removeProductFromCart(productId){
+
+        const productIndexInCart = selectedProducts.value.findIndex(cartProduct =>cartProduct.id === productId)
+        
+        if(productIndexInCart !== -1 && productIndexInCart !== undefined){
+
+            selectedProducts.value.splice(productIndexInCart,1);
+        }
+        else{
+
+            alert(`Product n°${productId} not found in cart`);
+        }
+        
     }
         
     return {
 
         selectedProducts,
         TotalPrice,
-        addProductToCart
+        addProductToCart,
+        totalProducts,
+        removeProductFromCart
     }
 }
 

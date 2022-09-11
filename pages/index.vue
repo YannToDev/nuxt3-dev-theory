@@ -16,14 +16,10 @@
 </template>
 
 <script setup>
-
   useHead({
-
     title:'DevTheory-Merch/Home',
   })
-
 </script>
 
 <style lang="scss" scoped>
-
 </style>
