@@ -14,14 +14,14 @@
                     <ul>
                         <li>Catégorie</li>
                         <li>
-                            <Nuxt-link :to="`/category/`+ product.category">{{categoryNameTemp}}</Nuxt-link>
+                            <Nuxt-link :to="`/category/`+ product.category">{{$getCategoryTitle(product.category)}}</Nuxt-link>
                         </li>
                         <li class="text-base-content/75">
                             <span>Ce produit</span>
                         </li>
                     </ul>
                 </div>
-
+            
                 <h1 class="mt-8 text-xl font-bold">{{product.name}} (n°)</h1>
                 <p class="mt-4 text-sm">
                     <template v-if="reviewsAvg">
@@ -68,14 +68,10 @@
 </template>
 
 <script setup>
-    // import {StarIcon} from "@heroicons/vue/solid"
-    // import {StarIcon as EmptyStarIcon} from '@heroicons/vue/outline'
-    // <StarIcon class="ml-1 inline w-5 align-middle"></StarIcon>
-
+  
     const route = useRoute();
     const productId = route.params.productId;
 
-    const categories = useCategories();
     const {addProductToCart} = useCart();
 
     // pour récupérer la valeur du select dans le DOM
@@ -98,11 +94,11 @@
 
     // on cherche l'id(le nom) de la category qui correspond à la category récupéré dans via la requete
     // !! on utilise une computed car product est en lazy et une ref!!
-    const categoryNameTemp = computed(() =>{
+    // const categoryNameTemp = computed(() =>{
 
-         return categories.value.find(category => category.id === product.value.category).title
+    //      return categories.value.find(category => category.id === product.value.category).title
 
-    })
+    // })
 
     
     // computed qui permet de calculer la moyenne des notes
@@ -118,3 +114,10 @@
     })
 </script>
 
+
+
+
+
+<!-- import {StarIcon} from "@heroicons/vue/solid"
+ import {StarIcon as EmptyStarIcon} from '@heroicons/vue/outline'
+  <StarIcon class="ml-1 inline w-5 align-middle"></StarIcon> -->

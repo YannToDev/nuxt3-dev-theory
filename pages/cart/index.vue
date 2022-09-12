@@ -85,12 +85,15 @@
 </template>
 
 <script setup>
+
+    // middleware qui va bloquer l'accès à la page si le panier est vide
+    definePageMeta({
+
+        middleware :['no-empty-cart']
+    })
+
     // récupération des produits et du prix total
-    const {
-        selectedProducts,
-        TotalPrice,
-        removeProductFromCart
-    } = useCart()
+    const { selectedProducts,TotalPrice,removeProductFromCart } = useCart()
 
     const categories = useCategories();
 
@@ -124,7 +127,7 @@
         const areChecked = document.querySelectorAll('.single-product-checkbox:checked');
         const areSomeProductsSelected = areChecked.length >0
      
-       showDeleteBtn.value = areSomeProductsSelected;
+        showDeleteBtn.value = areSomeProductsSelected;
 
         if(areChecked.length === 0){
 
@@ -153,5 +156,3 @@
 
 </script>
 
-<style lang="scss" scoped>
-</style>

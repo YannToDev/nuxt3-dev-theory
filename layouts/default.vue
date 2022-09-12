@@ -42,10 +42,13 @@
     // import {ShoppingBagIcon} from '@heroicons/vue/outline'
 
     // on définit une constante à partir du composable
-    const categories = useCategories();
+    // const categories = useCategories();
+
+    // on récupère les catégories définie comme dans nuxt.config.ts
+    const{categories} = useRuntimeConfig()
 
     // on définit les différentes catégories du menu
-    const menuCategoryItems = categories.value.map(category => {
+    const menuCategoryItems = categories.map(category => {
 
         return{
 

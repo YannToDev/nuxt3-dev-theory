@@ -3,6 +3,16 @@ import { defineNuxtConfig } from 'nuxt'
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
 
+       publicRuntimeConfig :{
+
+        categories : [
+
+            {id:'head', title:'tête'},
+            {id:'body', title:'Hauts'},
+            {id:'other', title:'Autres'}
+        ]
+       },
+
     meta:{
 
         link:[
@@ -15,21 +25,9 @@ export default defineNuxtConfig({
         // title:'DevTheory Merch'
     },
 
-    css:[
+    modules :["@nuxtjs/tailwindcss"]
 
-        '~/assets/css/main.css'
-    ],
+    
 
-    build: {
-        postcss: {
-            postcssOptions :{
-                plugins: {
-                    tailwindcss: {},
-                    autoprefixer: {},
-                },
-            }
-         
-        },
-    }
 })
 

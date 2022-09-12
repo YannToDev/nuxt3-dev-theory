@@ -2,12 +2,11 @@
 
 <template>
     <div>
-
+       
         <div v-if="products" class="p-5">
             <h1 class="text-5xl py-5">
-                Page de la catégorie {{categoryNameTemp}}
+                Page de la catégorie {{$getCategoryTitle(categoryName)}}
             </h1>
-
             <cards-container v-if="products && products.length" class="mt-10">
                 <product-card 
                     v-for="(product,index) in products" :key="index"
@@ -35,11 +34,10 @@
     // on utilise l'objet route pour récupérer le nom de la catégorie dispo en paramètre
     const route = useRoute();
     const categoryName = route.params.categoryName;
+    
 
-    const categories = useCategories();
-
-    // on récupère le titre de la catégorie dont l'id (le nom) est le même que celui récupérer dans l'URL
-    const categoryNameTemp = categories.value.find(category => category.id === categoryName).title
+    // // on récupère le titre de la catégorie dont l'id (le nom) est le même que celui récupérer dans l'URL
+    // const categoryNameTemp = categories.value.find(category => category.id === categoryName).title
 
     // pour pouvoir donner un titre à a page
     useHead({
@@ -48,6 +46,7 @@
 
     // const {data:products} = await useAsyncData(`products-${categoryName}`, () => $fetch(`http://localhost:3001/products/?category=${categoryName}`));
     const {data :products,pending,error} = await useLazyFetch(`http://localhost:3001/products/?category=${categoryName}`, { initialCache: false });
+
 
 </script>
 

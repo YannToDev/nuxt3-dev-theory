@@ -75,6 +75,11 @@ export const useCart = () =>{
             
         }
         console.log('cart:',selectedProducts.value, 'prix total:',TotalPrice.value)
+    
+        const { $toast } = useNuxtApp();
+        $toast.success('Produit ajouté au panier');
+
+        $toast.clear
     }
 
     // méthode pour supprimer un produit du panier
@@ -91,6 +96,8 @@ export const useCart = () =>{
             alert(`Product n°${productId} not found in cart`);
         }
         
+        const { $toast } = useNuxtApp();
+        $toast.warning('Produit supprimé du panier!')
     }
         
     return {

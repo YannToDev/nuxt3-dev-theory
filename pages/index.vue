@@ -19,6 +19,8 @@
   useHead({
     title:'DevTheory-Merch/Home',
   })
+
+
 </script>
 
 <style lang="scss" scoped>
